@@ -32,13 +32,17 @@ class HomeController {
         return ResponseEntity("Message sent", HttpStatus.OK)
     }
 
+    @GetMapping("/all")
+    fun sentToAll(): ResponseEntity<String> {
+        jmsTemplate.convertAndSend(MESSAGE_TO_ALL_QUEUE, "This is a message")
+        return ResponseEntity("Message sent", HttpStatus.OK)
+    }
+
     private fun sendMessage(id: Int = 1) {
         jmsTemplate.convertAndSend(MESSAGE_QUEUE, "Hello World") { postProcessor ->
             postProcessor.apply {
                 setIntProperty("server", id)
             }
         }
-
-        jmsTemplate.convertAndSend(MESSAGE_TO_ALL_QUEUE, "This is a message")
     }
 }
