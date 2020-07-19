@@ -1,6 +1,7 @@
 package com.campigoto.routedmessaging.controller
 
 import com.campigoto.routedmessaging.MESSAGE_QUEUE
+import com.campigoto.routedmessaging.MESSAGE_TO_ALL_QUEUE
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.jms.core.JmsTemplate
@@ -37,5 +38,7 @@ class HomeController {
                 setIntProperty("server", id)
             }
         }
+
+        jmsTemplate.convertAndSend(MESSAGE_TO_ALL_QUEUE, "This is a message")
     }
 }

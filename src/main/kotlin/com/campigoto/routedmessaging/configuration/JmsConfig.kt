@@ -10,9 +10,9 @@ import org.springframework.jms.config.DefaultJmsListenerContainerFactory
 import org.springframework.jms.config.JmsListenerEndpoint
 import org.springframework.jms.listener.DefaultMessageListenerContainer
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter
-import org.springframework.jms.support.converter.MessageConverter
 import org.springframework.jms.support.converter.MessageType
 import javax.inject.Inject
+import javax.inject.Named
 
 @Configuration
 class JmsConfig {
@@ -20,31 +20,28 @@ class JmsConfig {
     @Inject
     lateinit var env: Environment
 
-    @Bean
-    fun jmsFactory(): ActiveMQConnectionFactory {
+    fun jmsFactory() = ActiveMQConnectionFactory(env.getProperty(BROKER_URL) ?: "tcp://localhost:61616")
 
-        val brokerUrl = env.getProperty(BROKER_URL)
-        return ActiveMQConnectionFactory(brokerUrl ?: "tcp://localhost:61616")
-    }
-
-    @Bean
-    fun containerFactory(): DefaultJmsListenerContainerFactory {
+    @Bean(name = ["filteredContainerFactory"])
+    fun filteredContainerFactory(): DefaultJmsListenerContainerFactory {
 
         val selector = env.getRequiredProperty(JMS_SELECTOR)
         println("$JMS_SELECTOR: $selector")
-        val containerFactory = SelectorJmsListenerContainerFactory(selector)
-        containerFactory.setConnectionFactory(jmsFactory())
 
-        return containerFactory
+        return SelectorJmsListenerContainerFactory(selector).also {
+            it.setConnectionFactory(jmsFactory())
+        }
+    }
+
+    @Bean(name = ["containerFactory"])
+    fun containerFactory() = DefaultJmsListenerContainerFactory().also {
+        it.setConnectionFactory(jmsFactory())
     }
 
     @Bean
-    fun jacksonJmsMessageConverter(): MessageConverter? {
-
-        val converter = MappingJackson2MessageConverter()
-        converter.setTargetType(MessageType.TEXT)
-        converter.setTypeIdPropertyName("_type")
-        return converter
+    fun jacksonJmsMessageConverter() = MappingJackson2MessageConverter().apply {
+        setTargetType(MessageType.TEXT)
+        setTypeIdPropertyName("_type")
     }
 
     inner class SelectorJmsListenerContainerFactory(private val selector: String?) : DefaultJmsListenerContainerFactory() {
