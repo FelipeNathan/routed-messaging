@@ -12,7 +12,6 @@ import org.springframework.jms.listener.DefaultMessageListenerContainer
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter
 import org.springframework.jms.support.converter.MessageType
 import javax.inject.Inject
-import javax.inject.Named
 
 @Configuration
 class JmsConfig {
