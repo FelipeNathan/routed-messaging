@@ -21,12 +21,12 @@ class JmsConsumerTest {
 
     @BeforeEach
     fun config() {
-        jmsTemplate.receiveTimeout = JMS_TIMEOUT
+        jmsTemplate.receiveTimeout = JMS_TIMEOUTg
     }
 
     @Test
     fun shouldReadMessageQueueServer1() {
-        sendMessage(2)
+        sendMessage(1)
         assertEquals(HELLO_WORLD, jmsTemplate.receiveSelectedAndConvert(MESSAGE_TEST_QUEUE, env.getRequiredProperty(JMS_SELECTOR)))
     }
 
