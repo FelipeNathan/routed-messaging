@@ -21,7 +21,7 @@ class JmsConsumerTest {
 
     @BeforeEach
     fun config() {
-        jmsTemplate.receiveTimeout = JMS_TIMEOUTg
+        jmsTemplate.receiveTimeout = JMS_TIMEOUT
     }
 
     @Test
