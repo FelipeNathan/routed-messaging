@@ -22,20 +22,20 @@ class HomeController {
     fun home(): ResponseEntity<String> {
 
         sendMessage()
-        return ResponseEntity("Message sent", HttpStatus.OK)
+        return ResponseEntity(MESSAGE_SENT, HttpStatus.OK)
     }
 
     @GetMapping("{id}")
     fun home(@PathVariable id: Int): ResponseEntity<String> {
 
         sendMessage(id)
-        return ResponseEntity("Message sent", HttpStatus.OK)
+        return ResponseEntity(MESSAGE_SENT, HttpStatus.OK)
     }
 
     @GetMapping("/all")
     fun sentToAll(): ResponseEntity<String> {
         jmsTemplate.convertAndSend(MESSAGE_TO_ALL_QUEUE, "This is a message")
-        return ResponseEntity("Message sent", HttpStatus.OK)
+        return ResponseEntity(MESSAGE_SENT, HttpStatus.OK)
     }
 
     private fun sendMessage(id: Int = 1) {
@@ -44,5 +44,9 @@ class HomeController {
                 setIntProperty("server", id)
             }
         }
+    }
+
+    companion object {
+        const val MESSAGE_SENT = "Message sent"
     }
 }
