@@ -1,5 +1,6 @@
 # Routed Messaging 
 ![Test Coverage](https://github.com/FelipeNathan/Routed-Messaging/workflows/Test%20Coverage/badge.svg?branch=master)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=FelipeNathan_Routed-Messaging&metric=alert_status)](https://sonarcloud.io/dashboard?id=FelipeNathan_Routed-Messaging)
 
 O roteamento de mensagem pode abordar diferentes cenários, desde consumir a mensagem em métodos com diferentes configurações de prioridades até ser consumido por servidor específico (cenário criado nesta aplicação) 
 
