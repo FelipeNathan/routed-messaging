@@ -12,7 +12,7 @@ O roteamento de mensagem pode abordar diferentes cenários, desde consumir a men
 * `mvn clean install`
 
 ## Variáveis de ambiente
-* spring.activemq.broker-url (opcional, default: tcp://localhost:61616)
+* spring.activemq.broker-url (opcional, default: `tcp://localhost:61616`)
   * Url de conexão com o ActiveMQ
   
 * server.port
