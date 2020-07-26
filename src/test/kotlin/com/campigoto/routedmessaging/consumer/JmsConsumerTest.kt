@@ -26,7 +26,7 @@ class JmsConsumerTest {
 
     @Test
     fun shouldReadMessageQueueServer1() {
-        sendMessage(1)
+        sendMessage(2)
         assertEquals(HELLO_WORLD, jmsTemplate.receiveSelectedAndConvert(MESSAGE_TEST_QUEUE, env.getRequiredProperty(JMS_SELECTOR)))
     }
 
