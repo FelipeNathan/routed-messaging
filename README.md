@@ -8,7 +8,7 @@ O roteamento de mensagem pode abordar diferentes cenários, desde consumir a men
  * Java 1.8+
  
 ## _Build_
-* `mvn clean install`
+* `mvn clean package`
 
 ## Variáveis de ambiente
 * spring.activemq.broker-url (opcional, default: tcp://localhost:61616)
