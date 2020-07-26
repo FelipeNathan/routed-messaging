@@ -1,5 +1,6 @@
 # Routed Messaging 
 ![Test Coverage](https://github.com/FelipeNathan/Routed-Messaging/workflows/Test%20Coverage/badge.svg?branch=master)
+test sonar cloud
 
 O roteamento de mensagem pode abordar diferentes cenários, desde consumir a mensagem em métodos com diferentes configurações de prioridades até ser consumido por servidor específico (cenário criado nesta aplicação) 
 
