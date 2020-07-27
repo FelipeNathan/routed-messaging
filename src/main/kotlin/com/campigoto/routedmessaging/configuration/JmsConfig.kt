@@ -27,14 +27,14 @@ class JmsConfig {
         val selector = env.getRequiredProperty(JMS_SELECTOR)
         println("$JMS_SELECTOR: $selector")
 
-        return SelectorJmsListenerContainerFactory(selector).also {
-            it.setConnectionFactory(jmsFactory())
+        return SelectorJmsListenerContainerFactory(selector).apply {
+            setConnectionFactory(jmsFactory())
         }
     }
 
     @Bean(name = ["containerFactory"])
-    fun containerFactory() = DefaultJmsListenerContainerFactory().also {
-        it.setConnectionFactory(jmsFactory())
+    fun containerFactory() = DefaultJmsListenerContainerFactory().apply {
+        setConnectionFactory(jmsFactory())
     }
 
     @Bean
@@ -45,10 +45,8 @@ class JmsConfig {
 
     inner class SelectorJmsListenerContainerFactory(private val selector: String?) : DefaultJmsListenerContainerFactory() {
 
-        override fun createListenerContainer(endpoint: JmsListenerEndpoint): DefaultMessageListenerContainer {
-            return super.createListenerContainer(endpoint).also {
-                it.messageSelector = this.selector
-            }
+        override fun createListenerContainer(endpoint: JmsListenerEndpoint) = super.createListenerContainer(endpoint).also {
+            it.messageSelector = this.selector
         }
     }
 }

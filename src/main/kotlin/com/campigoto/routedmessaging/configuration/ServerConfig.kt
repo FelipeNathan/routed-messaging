@@ -15,7 +15,9 @@ class ServerConfig : WebServerFactoryCustomizer<ConfigurableWebServerFactory> {
 
     override fun customize(factory: ConfigurableWebServerFactory?) {
 
-        val serverPort = env.getRequiredProperty(SERVER_PORT)
-        factory?.setPort(Integer.parseInt(serverPort))
+        factory?.apply {
+            val serverPort = env.getRequiredProperty(SERVER_PORT)
+            setPort(Integer.parseInt(serverPort))
+        }
     }
 }
