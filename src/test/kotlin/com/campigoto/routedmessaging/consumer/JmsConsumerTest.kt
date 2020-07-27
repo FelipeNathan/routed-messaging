@@ -25,20 +25,20 @@ class JmsConsumerTest {
     }
 
     @Test
-    fun `Should read message from queue of filtered server 1`() {
+    fun `should read message from queue of filtered server 1`() {
         sendMessage(1)
         assertEquals(HELLO_WORLD, jmsTemplate.receiveSelectedAndConvert(MESSAGE_TEST_QUEUE, env.getRequiredProperty(JMS_SELECTOR)))
     }
 
     @Test
-    fun `Message should be null when is not the server 1`() {
+    fun `message should be null when is not the server 1`() {
         sendMessage(2)
         sendMessage(3)
         assertNull(jmsTemplate.receiveSelectedAndConvert(MESSAGE_TEST_QUEUE, env.getRequiredProperty(JMS_SELECTOR)))
     }
 
     @Test
-    fun `Should read any message from queue "message to all"`() {
+    fun `should read any message from queue message to all`() {
         jmsTemplate.convertAndSend(MESSAGE_TO_ALL_TEST_QUEUE, HELLO_WORLD)
         assertEquals(HELLO_WORLD, jmsTemplate.receiveAndConvert(MESSAGE_TO_ALL_TEST_QUEUE))
     }
